@@ -1,7 +1,7 @@
 #!/bin/bash
 port=$1
 
-image="docker.io/jupyter/datascience-notebook:latest"
+image="notebooks_with_packages:latest"
 
  ## will need to make config dir for startup.jl.
 docker run -it --rm --entrypoint /bin/bash \

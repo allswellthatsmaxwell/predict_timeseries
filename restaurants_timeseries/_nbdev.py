@@ -5,9 +5,13 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"read_data": "00_core.ipynb",
          "DATAPATH": "00_core.ipynb",
          "DATA_FILES": "00_core.ipynb",
-         "data": "00_core.ipynb"}
+         "data": "00_core.ipynb",
+         "VisitsSurveyor": "01_view_data.ipynb",
+         "vs": "01_view_data.ipynb",
+         "populated_store_id": "01_view_data.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "counts.py"]
 
 doc_url = "https://fastai.github.io/restaurants_timeseries/"
 
