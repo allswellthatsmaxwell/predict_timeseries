@@ -2,10 +2,10 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"read_data": "f00_core.ipynb",
-         "DATAPATH": "f00_core.ipynb",
-         "DATA_FILES": "f00_core.ipynb",
-         "data": "f00_core.ipynb"}
+index = {"read_data": "00_core.ipynb",
+         "DATAPATH": "00_core.ipynb",
+         "DATA_FILES": "00_core.ipynb",
+         "data": "00_core.ipynb"}
 
 modules = ["core.py"]
 
