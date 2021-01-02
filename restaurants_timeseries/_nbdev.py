@@ -11,7 +11,7 @@ index = {"read_data": "00_core.ipynb",
          "populated_store_id": "01_view_data.ipynb"}
 
 modules = ["core.py",
-           "counts.py"]
+           "surveyors.py"]
 
 doc_url = "https://fastai.github.io/restaurants_timeseries/"
 
