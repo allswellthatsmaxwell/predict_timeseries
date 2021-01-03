@@ -15,6 +15,7 @@ import restaurants_timeseries.core as core
 def get_earliest_date(dat):
     return dat.query("visitors > 0")['visit_date'].min()
 
+
 def get_latest_date(dat):
     return dat.query("visitors > 0")['visit_date'].max()
 
@@ -27,6 +28,9 @@ class VisitsSurveyor:
         self.assign_never_visited()
         self.filter_zero_periods()
         self.count_visited_days()
+        self.get_populated_spans()
+        self.plot_spans()
+        self.visits = self.visits.sort_values(['air_store_id', 'visit_date'], ascending=True)
 
     def report(self, s: str) -> None:
         if self.make_report:
@@ -82,9 +86,35 @@ class VisitsSurveyor:
             latest_day = get_latest_date(df)
             row = (store_id, earliest_day, latest_day)
             rows.append(row)
-        return core.pd.DataFrame(rows, columns=['air_store_id', 'earliest_visit_date', 'latest_visit_date'])
+        spans = core.pd.DataFrame(
+            rows, columns=['air_store_id', 'earliest_visit_date', 'latest_visit_date'])
+        spans['length'] = spans['latest_visit_date'] - spans['earliest_visit_date']
+        spans.sort_values('length', inplace=True)
+        spans['air_store_id'] = core.pd.Categorical(spans.air_store_id,
+                                                    categories=core.pd.unique(spans.air_store_id))
+        self.spans = spans
+
+    def plot_spans(self):
+        x = 'air_store_id'
+        spans_plot = (
+            pn.ggplot(self.spans, pn.aes(x=x, xend=x,
+                                         y='earliest_visit_date', yend='latest_visit_date')) +
+            pn.geom_segment(color='gray') +
+            pn.theme_bw() +
+            pn.scale_y_date(breaks="1 month", labels=date_format("%b %Y")) +
+            pn.theme(figure_size=(30, 4), axis_text_x=pn.element_blank(),
+                     axis_ticks_minor_x=pn.element_blank(), axis_ticks_major_x=pn.element_blank(),
+                     axis_text_y=pn.element_text(size=10),
+                     panel_grid=pn.element_blank()))
+        if self.make_report:
+            # takes long, so comment out during development
+            display(spans_plot)
+            #pass
 
 
 # Cell
 vs = VisitsSurveyor(core.data['visits'], False)
-populated_store_id = vs.visited_days_counts.sort_values(by='days_visited', ascending=False).air_store_id[0]
+populated_store_id = (
+    vs.visited_days_counts
+    .sort_values(by='days_visited', ascending=False)
+    .air_store_id[0])
