@@ -5,6 +5,7 @@ __all__ = ['read_data', 'DATAPATH', 'DATA_FILES', 'data']
 # Cell
 import os
 import pandas as pd
+from datetime import datetime
 DATAPATH = 'data'
 
 DATA_FILES = {
@@ -30,6 +31,7 @@ def read_data():
     for entry in ('simple_visits', 'all_stores_dates', 'store_info', 'date_info'):
         del(data[entry])
     data['visits'].visitors = data['visits'].visitors.fillna(0).astype(int)
+    data['visits']['visit_date'] = pd.to_datetime(data['visits']['visit_date'])
     return data
 
 #export
