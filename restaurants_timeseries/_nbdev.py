@@ -11,8 +11,11 @@ index = {"read_data": "00_core.ipynb",
          "get_earliest_date": "01_view_data.ipynb",
          "get_latest_date": "01_view_data.ipynb",
          "VisitsSurveyor": "01_view_data.ipynb",
+         "N_MOST_OPEN": "01_view_data.ipynb",
+         "N_LEAST_OPEN": "01_view_data.ipynb",
          "vs": "01_view_data.ipynb",
-         "populated_store_id": "01_view_data.ipynb"}
+         "most_open_stores": "01_view_data.ipynb",
+         "least_open_stores": "01_view_data.ipynb"}
 
 modules = ["core.py",
            "surveyors.py"]
