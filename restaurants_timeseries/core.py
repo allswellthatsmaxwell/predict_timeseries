@@ -32,6 +32,10 @@ def read_data():
         del(data[entry])
     data['visits'].visitors = data['visits'].visitors.fillna(0).astype(int)
     data['visits']['visit_date'] = pd.to_datetime(data['visits']['visit_date'])
+
+    for col in ('visit_datetime', 'reserve_datetime'):
+        data['reservations'][col] = pd.to_datetime(data['reservations'][col])
+
     return data
 
 #export
